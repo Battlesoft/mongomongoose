@@ -3,27 +3,30 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI);
 
+
+
+
+
 const personSchema = new mongoose.Schema({
   name: { type: String, required: true },
   age: Number,
   favoriteFoods: [String]
 });
 
+
 const Person = mongoose.model("Person", personSchema);
 
-const createAndSavePerson = function(done) {
-  // Crea una instancia del modelo Person
-  const janeFonda = new Person({
-    name: "Jane Fonda",
-    age: 84,
-    favoriteFoods: ["eggs", "fish", "fresh fruit"]
-  });
+var createAndSavePerson = function(done) {
+  var janeFonda = new Person({name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"]});
 
-  // Guarda la instancia en la base de datos
   janeFonda.save(function(err, data) {
     if (err) return console.error(err);
-    done(null, data); // Llama a la función de devolución de llamada con el resultado
+    done(null, data)
   });
+};
+
+const createAndSavePerson = (done) => {
+  done(null /*, data*/);
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
