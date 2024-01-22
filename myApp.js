@@ -15,15 +15,20 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model("Person", personSchema);
 
-var createAndSavePerson = function(done) {
-  var janeFonda = new Person({name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"]});
+const createAndSavePerson = function(done) {
+  // Crea una instancia del modelo Person
+  const janeFonda = new Person({
+    name: "Jane Fonda",
+    age: 84,
+    favoriteFoods: ["eggs", "fish", "fresh fruit"]
+  });
 
+  // Guarda la instancia en la base de datos
   janeFonda.save(function(err, data) {
     if (err) return console.error(err);
-    done(null, data)
+    done(null, data); // Llama a la función de devolución de llamada con el resultado
   });
 };
-
 
 const createManyPeople = (arrayOfPeople, done) => {
   done(null /*, data*/);
