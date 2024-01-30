@@ -23,15 +23,25 @@ let Person = mongoose.model("Person", personSchema);
 
 
 const createAndSavePerson = (done) => {
-  let newPerson = new Person({ name: "Ivan", age: 19, favoriteFoods: ["potaje", "pizza"] })
+  let newPerson = new Person({ name: "Yeray", age: 20, favoriteFoods: ["egg", "queso"] })
   newPerson.save(function (err, data) {
     if (err) return console.error(err);
     done(null, data)
   });
 };
 
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+/** 4) Create many People with `Model.create()` */
+var arrayOfPeople = [
+  {name: "Frankie", age: 74, favoriteFoods: ["Del Taco"]},
+  {name: "Sol", age: 76, favoriteFoods: ["roast chicken"]},
+  {name: "Robert", age: 78, favoriteFoods: ["wine"]}
+];
+
+var createManyPeople = function(arrayOfPeople, done) {
+  Person.create(arrayOfPeople, function (err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
 
 const findPeopleByName = (personName, done) => {
