@@ -9,15 +9,15 @@ mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true, useUnifiedTopolo
 
 const personSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  age: Number,
-  favoriteFoods: [String]
+  age: {type:Number},
+  favoriteFoods: {type:[String]}
 });
 
 
 const Person = mongoose.model("Person", personSchema);
 
-var createAndSavePerson = function(done) {
-  var janeFonda = new Person({name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"]});
+const createAndSavePerson = function(done) {
+  let janeFonda = new Person({name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"]});
 
   janeFonda.save(function(err, data) {
     if (err) return console.error(err);
@@ -25,9 +25,6 @@ var createAndSavePerson = function(done) {
   });
 };
 
-const createAndSavePerson = (done) => {
-  done(null /*, data*/);
-};
 
 const createManyPeople = (arrayOfPeople, done) => {
   done(null /*, data*/);
