@@ -9,6 +9,23 @@ const conn = mongoose.connection
 conn.on('connected', function(){
 console.log("mongodb启动成功")
 })
+// Manejador de eventos para errores de conexión
+conn.on('error', function(err) {
+  console.error("Error de conexión a MongoDB:", err);
+});
+
+// Manejador de eventos cuando la conexión se cierra
+conn.on('disconnected', function() {
+  console.log("La conexión a MongoDB se ha cerrado");
+});
+
+// Manejador de eventos cuando la aplicación se cierra (puedes usar esto para cerrar la conexión antes de salir)
+process.on('SIGINT', function() {
+  conn.close(function() {
+    console.log("Desconexión de la base de datos debido a la terminación de la aplicación");
+    process.exit(0);
+  });
+});
 
 
 const personSchema = new Schema({
