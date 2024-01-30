@@ -1,29 +1,33 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true, useUnifiedTopology: true });
-
-
-
-
+mongoose.connect(process.env.MONGO_URI);
 
 const personSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  age: {type:Number},
-  favoriteFoods: {type:[String]}
+  age: { type: Number },
+  favoriteFoods: { type: [String] }
 });
-
 
 const Person = mongoose.model("Person", personSchema);
 
-const createAndSavePerson = function(done) {
-  let janeFonda = new Person({name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"]});
+const createAndSavePerson = function (done) {
+  let janeFonda = new Person({ name: "Jane Fonda", age: 84, favoriteFoods: ["eggs", "fish", "fresh fruit"] });
 
-  janeFonda.save(function(err, data) {
+  janeFonda.save(function (err, data) {
     if (err) return console.error(err);
-    done(null, data)
+    done(null, data);
   });
 };
+
+// Llamada a la función createAndSavePerson
+createAndSavePerson(function (err, data) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log("Persona guardada exitosamente:", data);
+  }
+});
 
 
 const createManyPeople = (arrayOfPeople, done) => {
